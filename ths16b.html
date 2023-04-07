@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Deniz Göktaş">
+
+<title>Turkish Health Surveys</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="ths16b_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ths16b_files/libs/quarto-html/quarto.js"></script>
+<script src="ths16b_files/libs/quarto-html/popper.min.js"></script>
+<script src="ths16b_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="ths16b_files/libs/quarto-html/anchor.min.js"></script>
+<link href="ths16b_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ths16b_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="ths16b_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="ths16b_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="ths16b_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Turkish Health Surveys</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Deniz Göktaş </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="turkish-health-surveys" class="level5" data-number="0.0.0.0.1">
+<h5 data-number="0.0.0.0.1" class="anchored" data-anchor-id="turkish-health-surveys"><span class="header-section-number">0.0.0.0.1</span> Turkish Health Surveys</h5>
+<p>Turkish population health survey is conducted in two or three year periods. In this paper we have last four waves (2012, 2014, 2016, 2019). This survey has data on self assessed health conditions.</p>
+</section>
+<section id="retrieving-turkish-health-survey-2016-data" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Retrieving Turkish Health Survey 2016 data</h1>
+<section id="required-packages" class="level6" data-number="1.0.0.0.0.1">
+<h6 data-number="1.0.0.0.0.1" class="anchored" data-anchor-id="required-packages"><span class="header-section-number">1.0.0.0.0.1</span> Required packages</h6>
+<p>Turkish health survey data</p>
+<div class="cell">
+
+</div>
+<p>Summary statistics for ths16 data</p>
+<p>For pdf input, tinytext is installed.</p>
+<div class="cell">
+
+</div>
+<p>Show ths19 dataset</p>
+<div class="cell">
+
+</div>
+<p>Select variables needed for identification of education gradient.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> int [1:23606] 16 16 16 16 16 16 16 16 16 16 ...</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> int [1:23606] 7124 5311 NA NA 3322 NA 5153 NA NA 8322 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="data-and-selection-of-variables" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="data-and-selection-of-variables"><span class="header-section-number">1.1</span> Data and Selection of Variables</h2>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars    n mean   sd median trimmed  mad min max range skew kurtosis   se
+X1    1 8941  5.4 6.84      3     3.9 2.97   0  23    23  1.8     1.74 0.07</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> int [1:23606] 7124 5311 NA NA 3322 NA 5153 NA NA 8322 ...</code></pre>
+</div>
+</div>
+<p>Transform education levels to years by recoding EGITIM variables</p>
+<div class="cell">
+
+</div>
+<p>Tabulate new values of EGITIM</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   0    5    8   11   13   15   17   21 
+ 768 3190 1227 1782  592 1179  174   29 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars    n mean   sd median trimmed  mad min max range skew kurtosis   se
+X1    1 8941 8.31 4.54      8    8.35 4.45   0  21    21 0.08    -0.76 0.05</code></pre>
+</div>
+</div>
+<section id="aggregating-isco-four-digit-to-isco-3-digit" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="aggregating-isco-four-digit-to-isco-3-digit"><span class="header-section-number">1.1.1</span> Aggregating ISCO four-digit to ISCO 3-digit</h3>
+<div class="cell">
+
+</div>
+<p>Since the rareness of counts, ISCO_08 is aggregated under ISCO-08 three digits. isco3_08 is the new variable.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+    110    4110    6111    5760    7533    9629   12660 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Length  Class   Mode 
+     0   NULL   NULL </code></pre>
+</div>
+</div>
+<p>Compute mean EGITIM for each ISCO_08 category.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars    n mean   sd median trimmed  mad min   max range skew kurtosis   se
+X1    1 8941 8.31 3.32   7.35    8.07 2.98   0 17.22 17.22 0.59    -0.62 0.04</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.000   5.874   7.351   8.312  10.958  17.217 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>      110       111       112       121       122       131       132       133 
+15.750000 10.180000 13.029412 13.222222 12.764706 11.000000 10.188406 13.666667 
+      134       141       142       143       210       211       212       213 
+14.200000  8.724138 10.125000  9.750000 12.925926 14.200000 15.000000 14.600000 
+      214       215       216       221       222       225       226       231 
+15.254545 15.375000 13.652174 17.217391 13.250000 15.750000 15.560000 16.770833 
+      232       233       234       235       241       242       243       251 
+14.122449 14.964072 13.842105 12.837838 13.258503 13.647059 12.636364 13.434783 
+      252       261       262       263       264       265       310       311 
+10.200000 15.444444  9.000000 12.196721 11.125000 10.789474 14.000000 11.266129 
+      312       313       314       315       321       322       324       325 
+ 7.925000  9.129032  8.500000 12.714286 10.631579 11.000000 11.250000 12.040000 
+      331       332       333       334       335       341       342       343 
+13.826087 10.958333 11.220000 11.873016 12.731707 11.629630 13.500000 10.440000 
+      351       352       411       412       413       421       422       431 
+13.000000 11.375000 11.571429 10.722222 12.484848 12.256098 11.328125 12.126582 
+      432       441       511       512       513       514       515       516 
+ 8.610000 11.769231  9.809524  6.394231  8.237288  7.764706  6.100840 11.666667 
+      521       522       523       524       531       532       541       611 
+ 6.759494  8.880478  9.558442  8.545455  6.709091  5.869048  9.357692  4.470046 
+      612       613       621       622       631       632       633       634 
+ 4.474916  3.787879  5.400000  5.750000  4.444444  0.000000  1.363636  5.000000 
+      711       712       713       721       722       723       731       732 
+ 6.065693  6.235772  6.816327  7.083333  7.111111  7.351064  6.312977  8.142857 
+      741       742       751       752       753       754       811       812 
+ 8.243243  9.222222  6.323944  7.372093  6.453608  7.464286  6.636364  7.708333 
+      813       814       815       816       817       818       821       831 
+ 8.000000  7.435897  6.730159  7.318182  6.750000  7.297297  7.387097  9.000000 
+      832       833       834       835       911       912       921       931 
+ 7.761290  6.681481  6.983051  7.250000  5.873518  6.822222  3.867816  5.345679 
+      932       933       941       951       952       961       962 
+ 6.523585  5.138462  5.775000  6.400000  7.428571  5.807692  7.333333 </code></pre>
+</div>
+</div>
+<p>Compute standard deviations for EGITIM with respect to ISCO_08.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars    n mean   sd median trimmed  mad min  max range skew kurtosis   se
+X1    1 8937 3.05 0.65    3.1    3.08 0.52   0 5.66  5.66 -0.7     1.86 0.01</code></pre>
+</div>
+</div>
+<p><br>
+ISCO mean + one standard deviation</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars    n  mean   sd median trimmed  mad min   max range skew kurtosis   se
+X1    1 8937 11.36 3.09  10.59   11.25 3.15   0 20.25 20.25 0.37    -0.83 0.03</code></pre>
+</div>
+</div>
+<p>Define OVEREDUCATION</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars    n  mean   sd median trimmed  mad    min   max range  skew kurtosis
+X1    1 8937 -3.05 3.17  -2.84   -2.97 2.69 -15.87 10.13    26 -0.23     0.32
+     se
+X1 0.03</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars    n mean  sd median trimmed mad min   max range skew kurtosis   se
+X1    1 8937 0.25 0.8      0    0.03   0   0 10.13 10.13 4.69    28.03 0.01</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+        0         1 
+0.8473761 0.1526239 </code></pre>
+</div>
+</div>
+<div class="cell">
+
+</div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAaCAYAAADFTB7LAAAAa0lEQVR42u3OywnAIBBAwcXSUoCW5D11xDoNCBGNv0MOecJOBSOi1OZMsJ4dvFxEJ1OQnMxBarIKEpNNkJbsBknJYZCSnAYJyVVQziNig7/nZkFEbhTE5HpBVO4dxOXKIDL3BLG5BJ1T6rsbMfep2CaMN00AAAAASUVORK5CYII=.png" title="Run Current Chunk" class="img-fluid"></p>
+<p>Define UNDEREDUCATION</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars    n mean   sd median trimmed  mad   min   max range skew kurtosis   se
+X1    1 8937 5.26 3.66   4.37     4.9 2.76 -0.97 15.02 15.99 0.81    -0.18 0.04</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars    n mean   sd median trimmed  mad    min   max range skew kurtosis
+X1    1 8937 3.05 3.17    2.9    2.98 2.92 -10.63 16.51 27.15  0.2      0.3
+     se
+X1 0.03</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars    n  mean   sd median trimmed mad    min max range  skew kurtosis   se
+X1    1 8937 -0.25 0.81      0   -0.03   0 -10.63   0 10.63 -4.35    22.42 0.01</code></pre>
+</div>
+</div>
+<p>Define dichotomous variable for underedu</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+        0         1 
+0.8291373 0.1708627 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="ths16b_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>summary statistics
+------
+min:  0   max:  24 
+median:  1 
+mean:  2.676211 
+estimated sd:  3.580016 
+estimated skewness:  2.086117 
+estimated kurtosis:  8.983017 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars    n mean   sd median trimmed mad min max range skew kurtosis se
+X1    1 8941 0.05 0.21      0       0   0   0   1     1 4.37    17.12  0</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>            X..ths16b.overedu
+nobs              8941.000000
+NAs                  4.000000
+Minimum              0.000000
+Maximum             10.134285
+1. Quartile          0.000000
+3. Quartile          0.000000
+Mean                 0.249285
+Median               0.000000
+Sum               2227.858091
+SE Mean              0.008489
+LCL Mean             0.232645
+UCL Mean             0.265924
+Variance             0.643956
+Stdev                0.802469
+Skewness             4.693527
+Kurtosis            28.027789</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 316 × 3
+# Groups:   isco3_08 [127]
+   isco3_08 overedu     n
+      &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+ 1      110   0         7
+ 2      110   2.43      1
+ 3      111   0        33
+ 4      111   0.245    16
+ 5      111   2.25      1
+ 6      112   0        32
+ 7      112   1.18      2
+ 8      121   0        68
+ 9      121   1.09      4
+10      122   0        32
+# … with 306 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = phq ~ overedu2 + underedu2 + EGITIM + GUVENILIR_YAKIN + 
+    HESAPLANAN_YAS + I(HESAPLANAN_YAS^2) + CINSIYET + MEDENI_DURUM + 
+    HANE_GELIR, data = ths16b)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-5.262 -2.323 -1.098  1.470 22.388 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)          3.4229854  0.3647056   9.386  &lt; 2e-16 ***
+overedu2            -0.0836280  0.1138045  -0.735 0.462457    
+underedu2            0.2088382  0.1168394   1.787 0.073907 .  
+EGITIM              -0.0438524  0.0120865  -3.628 0.000287 ***
+GUVENILIR_YAKIN     -0.4454713  0.0434764 -10.246  &lt; 2e-16 ***
+HESAPLANAN_YAS      -0.0099337  0.0137451  -0.723 0.469880    
+I(HESAPLANAN_YAS^2)  0.0001092  0.0001390   0.785 0.432206    
+CINSIYET             0.9818230  0.0777868  12.622  &lt; 2e-16 ***
+MEDENI_DURUM         0.2152995  0.0727362   2.960 0.003084 ** 
+HANE_GELIR          -0.2550666  0.0311051  -8.200 2.73e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.471 on 8927 degrees of freedom
+  (4 observations deleted due to missingness)
+Multiple R-squared:  0.06114,   Adjusted R-squared:  0.0602 
+F-statistic:  64.6 on 9 and 8927 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Poisson distribution Second regression</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = phq ~ overedu + underedu + EGITIM + HANE_GELIR + 
+    GUVENILIR_YAKIN + HESAPLANAN_YAS + CINSIYET + MEDENI_DURUM, 
+    family = "poisson", data = ths16b)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-3.5545  -2.0690  -0.8429   0.8602   9.0417  
+
+Coefficients:
+                  Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)      1.2018080  0.0425879  28.219  &lt; 2e-16 ***
+overedu         -0.0233712  0.0098043  -2.384 0.017136 *  
+underedu        -0.0274431  0.0078745  -3.485 0.000492 ***
+EGITIM          -0.0168778  0.0020280  -8.323  &lt; 2e-16 ***
+HANE_GELIR      -0.0981913  0.0055268 -17.767  &lt; 2e-16 ***
+GUVENILIR_YAKIN -0.1664726  0.0076838 -21.665  &lt; 2e-16 ***
+HESAPLANAN_YAS   0.0004114  0.0005148   0.799 0.424179    
+CINSIYET         0.3557074  0.0134042  26.537  &lt; 2e-16 ***
+MEDENI_DURUM     0.0557136  0.0116778   4.771 1.83e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 38025  on 8936  degrees of freedom
+Residual deviance: 35455  on 8928  degrees of freedom
+  (4 observations deleted due to missingness)
+AIC: 52041
+
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm.nb(formula = phq ~ EGITIM + overedu + underedu + HANE_GELIR + 
+    GUVENILIR_YAKIN + HESAPLANAN_YAS + CINSIYET + MEDENI_DURUM, 
+    data = ths16b, init.theta = 0.6049639687, link = log)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.7155  -1.3528  -0.4036   0.3486   3.2139  
+
+Coefficients:
+                  Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)      1.2074479  0.1007609  11.983  &lt; 2e-16 ***
+EGITIM          -0.0174421  0.0046969  -3.714 0.000204 ***
+overedu         -0.0154485  0.0207041  -0.746 0.455573    
+underedu        -0.0268684  0.0203724  -1.319 0.187215    
+HANE_GELIR      -0.0956477  0.0128360  -7.452 9.23e-14 ***
+GUVENILIR_YAKIN -0.1686306  0.0179786  -9.380  &lt; 2e-16 ***
+HESAPLANAN_YAS   0.0002476  0.0012198   0.203 0.839130    
+CINSIYET         0.3564140  0.0318952  11.175  &lt; 2e-16 ***
+MEDENI_DURUM     0.0567241  0.0294722   1.925 0.054272 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(0.605) family taken to be 1)
+
+    Null deviance: 9870.5  on 8936  degrees of freedom
+Residual deviance: 9405.8  on 8928  degrees of freedom
+  (4 observations deleted due to missingness)
+AIC: 37316
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  0.6050 
+          Std. Err.:  0.0137 
+
+ 2 x log-likelihood:  -37295.7940 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = phq_dich ~ overedu2 + underedu2 + HANE_GELIR + 
+    EGITIM + GUVENILIR_YAKIN + HESAPLANAN_YAS + I(HESAPLANAN_YAS^2) + 
+    CINSIYET + MEDENI_DURUM, family = "binomial", data = ths16b)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-0.7361  -0.3384  -0.2664  -0.2101   3.0443  
+
+Coefficients:
+                      Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)         -2.2221295  0.5053813  -4.397 1.10e-05 ***
+overedu2             0.0979462  0.1727022   0.567    0.571    
+underedu2            0.0004843  0.1577011   0.003    0.998    
+HANE_GELIR          -0.2250809  0.0449103  -5.012 5.39e-07 ***
+EGITIM              -0.0154496  0.0178342  -0.866    0.386    
+GUVENILIR_YAKIN     -0.3876197  0.0623589  -6.216 5.10e-10 ***
+HESAPLANAN_YAS      -0.0175958  0.0181067  -0.972    0.331    
+I(HESAPLANAN_YAS^2)  0.0002155  0.0001786   1.206    0.228    
+CINSIYET             0.7777235  0.1073993   7.241 4.44e-13 ***
+MEDENI_DURUM         0.0345937  0.0880619   0.393    0.694    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 3297.6  on 8936  degrees of freedom
+Residual deviance: 3136.6  on 8927  degrees of freedom
+  (4 observations deleted due to missingness)
+AIC: 3156.6
+
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
